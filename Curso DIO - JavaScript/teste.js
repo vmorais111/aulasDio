@@ -1,9 +1,7 @@
-// const n1=10
-// const n2='10'
-// console.log(n1===n2)
+const numerosPares = [];
 
-function calcularMedia(nota1, nota2) {
-    const media = (nota1 + nota2) / 2;
+for (let i = 0; i < 10; i = i + 2) {
+    numerosPares.push(i);
 }
 
-console.log(calcularMedia(5, 5));
+console.log(numerosPares);
