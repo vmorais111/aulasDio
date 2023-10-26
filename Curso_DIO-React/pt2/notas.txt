@@ -1,0 +1,108 @@
+Babel - transpilador JS de código averto e gratuito, o babel possui como uma das principais características
+converter código JS atual em uma versão que o navegador possa executar. É amplamente utilizado por desenvolvedores
+que necessitarem converter recursos da linguagem JS para uma versãoque o navegador compreenda.
+
+passos:
+1º yarn init -y 
+2º yarn add @babel/core @babel/preset-env @babel/preset-react babel-loader -D
+3º criar arquivo ".babellrc" e adicionar as seguintes linhas:
+{
+    "presets": [
+        "@babel/preset-env",
+        ["@babel/preset-react", {"runtime": "automatic"}]
+    ]
+}
+
+Webpack - webpack é um module bundler (empacotador de módulos) para JS, em outras palavras, ele junta os arquivos
+JS ( e tbm outros formatos) da sua aplicação (seja arquivos seus ou dependências externas) em um arquivo só (ou mais
+de um), de forma otimizada.
+Os arquivos são unificados na ordem certa, sem duplicação e podem ser minificados para reduzir o tamanho
+
+*ver screenshot_1
+
+passos: 
+1º - yarn add html-loader html-webpack-plugin webpack webpack-cli webpack-dev-server style-loader css-loader file-loader -D
+2º criar outro documento com o nome webpack.config.js e adicionar o seguinte código:
+
+const HtmlWebPackPlugin = require("html-webpack-plugin");
+
+module.exports = {
+    devtool: "source-map",
+    entry: "./src/index.js",
+    module: {
+        rules: [
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: {loader: "babel-loader"}
+            },
+            {
+                test: /\.html$/,
+                use: [{loader: "html-loader"}]
+            },
+            {
+                test: /\.css$/,
+                use: ["style-loader", "css-loader"]
+            },
+            {
+                test: /\.(png|jpg?e|gif)$/i,
+                use: ["file-loader"]
+            }
+        ]
+    },
+    resolve:{
+        extensions: [".js", ".jsx"],
+    },
+    plugin:[
+        new HtmlWebPackPlugin({
+            template: './public/index.html'
+        }),
+    ],
+};
+
+ESLint - ferramenta de análise de código, que, juntamente com sua extensão no Vscode, permite identificar erros
+quanto ao padrão de escrita definido. Pode-se definir, por exemplo, que, num codigo JS, sempre seja posto um ';'
+ao final das sentenças ou definir que seja posta uma virgula ao final de um array
+
+Passos:
+
+1º - npx eslint --init
+2º - configurar as opções no terminal
+3º - em "rules" no '.eslintrc.json" colocar "react/react-in-jsx-scope": "off"
+
+Prettier - formatador de código que visa ajudar os desenvolvedores a escrever aplicações que são mais fáceis
+de entender e mais uniformizadas entre as diversas formas de programar que existem.
+
+eslint -> sintaxe/validação do código
+Prettier -> formatação do código
+
+Passos
+1º - yarn add eslint-config-prettier eslint-prettier prettier -D
+2º - Em .eslintrc.json adicionar na aba "extends":
+ - "eslint:recommended",
+ - "plugin:prettier/recommended",
+
+3º - Criar arquivo de nome ".prettierrc"
+4º - adicionar neste arquivo 
+{
+    "semi":true,
+    "tabWidth": 4,
+    "printWidth": 100, 
+    "singleQuote":true,
+    "trailingComma": "none",
+    "jsxBracketSameLine": true
+}
+
+Editor Config 
+
+Nada mais é do que um plugin que obriga o edito de código a seguir de forma prescrita os padrões macro essenciais
+de formatação configuurados pelo usuário.
+Em outras palavras, o editorConfig ajuda a estabelecer um estilo de código entre diferentes editores, independente
+da tecnologia utilizada
+
+criar arquivo ".editorconfig" e colocar o seguinte código:
+
+root = true
+end_of_line = lf
+insert_final_newline = true
+indent_size = 4
